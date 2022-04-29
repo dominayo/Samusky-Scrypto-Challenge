@@ -31,4 +31,4 @@ Guest judge: Florian Pieper @fpieper, Radix legend
 
 -Distribution of prizes and extension of any offer to join the team is at the sole discretion of the competition organiser.
 
--If the judges deem no single entry to be a viable prototype, they reserve the right to declare no winners. Note: this clause will only be invoked in good faith.
+-If the judges deem no single entry to be a viable prototype, they reserve the right to declare no winners. Note: this clause will only be invoked in good faith. All submissions will be public via Github Pull Requests, allowing anyone to verify this.
