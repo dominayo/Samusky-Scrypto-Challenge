@@ -1,7 +1,6 @@
 # Samusky-Scrypto-Challenge
 
-**ANNOUNCING THE SAMUSKY SCRYPTO CHALLENGE – $15,000 IN XRD PRIZES
-**
+**ANNOUNCING THE SAMUSKY SCRYPTO CHALLENGE – $15,000 IN XRD PRIZES**
 
 Starting today, you have two months to create a working blueprint package for a Decentralised Finance (DeFi) product in Scrypto. You any DeFi product you can dream up. Bonus points if it’s something never done before or not possible on other chains.
 
