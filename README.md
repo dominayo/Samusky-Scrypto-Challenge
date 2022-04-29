@@ -17,6 +17,16 @@ If the first prize winner joins the Samusky team, he/she will also receive a siz
 Judge: James @defiyields, founder of Samuskycoin
 Guest judge: Florian Pieper @fpieper, Radix legend
 
+**How to Enter**
+
+-Fork this repository
+
+-Clone the forked repository on your local environment
+
+-Start a new Scrypto project
+
+-Before the 25 April deadline, commit and push your project folder and create a pull request
+
 **T&Cs:**
 
 -Your entry must be built with Scrypto.
