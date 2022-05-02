@@ -2,7 +2,7 @@
 
 **ANNOUNCING THE SAMUSKY SCRYPTO CHALLENGE – $15,000 IN XRD PRIZES**
 
-Starting today, you have two months to create a working blueprint package for a Decentralised Finance (DeFi) product in Scrypto. You any DeFi product you can dream up. Bonus points if it’s something never done before or not possible on other chains.
+Starting today, you have two months to create a working blueprint package for a Decentralised Finance (DeFi) product in Scrypto. You can enter with any DeFi product you can dream up. Bonus points if it’s something never done before or not possible on other chains.
 
 It is expected that the winning entry be a working prototype.
 
@@ -19,26 +19,25 @@ Guest judge: Florian Pieper @fpieper, Radix legend
 
 **How to Enter**
 
--Fork this repository
+- Fork this repository
+- Clone the forked repository on your local environment
 
--Clone the forked repository on your local environment
+- Start a new Scrypto project
 
--Start a new Scrypto project
-
--Before the 25 April deadline, commit and push your project folder and create a pull request
+- Before the 25 April deadline, commit and push your project folder and create a pull request
 
 **T&Cs:**
 
--Your entry must be built with Scrypto.
+- Your entry must be built with Scrypto.
 
--The competition starts on 25 April 2022. All entries must be submitted no later than 27 June 2022.
+- The competition starts on 25 April 2022. All entries must be submitted no later than 27 June 2022.
 
--Final selection of the winners rests solely with the judges.
+- Final selection of the winners rests solely with the judges.
 
--The first place winner transfers sole rights for his/her blueprint to the Samusky project. The other entrants, including 2nd and 3rd place winners, retain full rights to their code.
+- The first place winner transfers sole rights for his/her blueprint to the Samusky project. The other entrants, including 2nd and 3rd place winners, retain full rights to their code.
 
--Winners must provide their full name and KYC details to receive the prizes. 
+- Winners must provide their full name and KYC details to receive the prizes. 
 
--Distribution of prizes and extension of any offer to join the team is at the sole discretion of the competition organiser.
+- Distribution of prizes and extension of any offer to join the team is at the sole discretion of the competition organiser.
 
--If the judges deem no single entry to be a viable prototype, they reserve the right to declare no winners. Note: this clause will only be invoked in good faith. All submissions will be public via Github Pull Requests, allowing anyone to verify this.
+- If the judges deem no single entry to be a viable prototype, they reserve the right to declare no winners. Note: this clause will only be invoked in good faith. All submissions will be public via Github Pull Requests, allowing anyone to verify this.
