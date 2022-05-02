@@ -40,6 +40,10 @@ git push origin main
 
 - Create a pull request [here](https://github.com/defiyields/Samusky-Scrypto-Challenge/pulls)
 
+**Building with Scrypto**
+
+Check out the Hello World Scrypto example here: [https://github.com/radixdlt/scrypto-examples/tree/main/core/hello-world]
+
 **T&Cs:**
 
 - Your entry must be built with Scrypto.
