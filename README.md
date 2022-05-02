@@ -42,7 +42,7 @@ git push origin main
 
 **Building with Scrypto**
 
-Check out the Hello World Scrypto example here: [https://github.com/radixdlt/scrypto-examples/tree/main/core/hello-world]
+Check out the Hello World Scrypto example here: https://github.com/radixdlt/scrypto-examples/tree/main/core/hello-world
 
 **T&Cs:**
 
