@@ -15,6 +15,7 @@ If the first prize winner joins the Samusky team, he/she will also receive a siz
 3rd prize: $1000 (in XRD)
 
 Judge: James @defiyields, founder of Samuskycoin
+
 Guest judge: Florian Pieper @fpieper, Radix legend
 
 **How to Enter**
