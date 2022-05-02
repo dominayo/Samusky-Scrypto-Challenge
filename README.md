@@ -10,9 +10,11 @@ The first-prize winner will receive a monetary prize in XRD and may be invited t
 
 If the first prize winner joins the Samusky team, he/she will also receive a sizeable team allocation of SMK tokens, thus sharing in the future success of the Samusky project. Further development of the product as part of the Samusky team is subject to mutual agreement by both parties, and the exact terms will depend on the agreed scope of the work.
 
-1st prize: $10,000 (in XRD)
-2nd prize: $4000 (in XRD)
-3rd prize: $1000 (in XRD)
+**1st prize: $10,000 (in XRD)**
+
+**2nd prize: $4000 (in XRD)**
+
+**3rd prize: $1000 (in XRD)**
 
 Judge: James @defiyields, founder of Samuskycoin
 
@@ -20,13 +22,23 @@ Guest judge: Florian Pieper @fpieper, Radix legend
 
 **How to Enter**
 
-- Fork this repository
+- Install the [Scrypto toolchain](https://github.com/radixdlt/radixdlt-scrypto)
 
-- Clone the forked repository on your local environment
+- Fork this repository (Samusky Scrypto Challenge)
 
-- Start a new Scrypto project
+- Clone the forked repository: `git clone [git link of forked repo]`
 
-- Before the 27 June deadline, commit and push your project folder and create a pull request
+- Start a new scrypto project: `scrypto new-package [your_project_name]`
+
+- When you are done, create a commit containing your project's folder:
+
+```
+git add [project_folder]
+git commit -m "My submission"
+git push origin main
+```
+
+- Create a pull request [here](https://github.com/defiyields/Samusky-Scrypto-Challenge/pulls)
 
 **T&Cs:**
 
