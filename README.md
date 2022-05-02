@@ -20,11 +20,12 @@ Guest judge: Florian Pieper @fpieper, Radix legend
 **How to Enter**
 
 - Fork this repository
+
 - Clone the forked repository on your local environment
 
 - Start a new Scrypto project
 
-- Before the 25 April deadline, commit and push your project folder and create a pull request
+- Before the 27 June deadline, commit and push your project folder and create a pull request
 
 **T&Cs:**
 
