@@ -1,0 +1,20 @@
+CALL_METHOD 
+    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a") 
+    "withdraw" 
+    ResourceAddress("030000000000000000000000000000000000000000000000000004")
+    Decimal("1");
+
+TAKE_FROM_WORKTOP
+    ResourceAddress("030000000000000000000000000000000000000000000000000004")
+    Bucket("xrd_bucket");
+
+CALL_METHOD 
+    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41") 
+    "create_character"
+    Bucket("xrd_bucket")
+    1u64
+    "Quwin";
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a") 
+    "deposit_batch";

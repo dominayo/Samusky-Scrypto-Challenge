@@ -1,0 +1,45 @@
+CALL_METHOD 
+    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a") 
+    "withdraw" 
+    ResourceAddress(${gold})
+    Decimal("1");
+
+CALL_METHOD 
+    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a") 
+    "withdraw" 
+    ResourceAddress(${greavite})
+    Decimal("1");
+
+CALL_METHOD 
+    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a") 
+    "withdraw" 
+    ResourceAddress(${wood})
+    Decimal("1");
+
+TAKE_FROM_WORKTOP_BY_AMOUNT
+    Decimal("1")
+    ResourceAddress(${gold})
+    Bucket("gold_bucket");
+
+TAKE_FROM_WORKTOP_BY_AMOUNT
+    Decimal("1")
+    ResourceAddress(${greavite})
+    Bucket("greavite_bucket");
+
+TAKE_FROM_WORKTOP_BY_AMOUNT
+    Decimal("1")
+    ResourceAddress(${wood})
+    Bucket("wood_bucket");
+
+CALL_METHOD 
+    ComponentAddress("028d57bbc29b485f259099f50fb7e70bb648b0eadf15218ce1cb81") 
+    "create_weapon"
+    Bucket("gold_bucket")
+    Bucket("greavite_bucket")
+    Bucket("wood_bucket")
+    1u64
+    Decimal("1");
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a") 
+    "deposit_batch";
