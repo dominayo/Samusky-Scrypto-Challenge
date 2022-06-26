@@ -1,32 +1,29 @@
 use scrypto::prelude::*;
 
-mod structs;
-mod rng;
-mod combat;
+mod structs; // has all the structs for objects
+mod rng; // has the pseudo random number generator
+mod combat; // has the combat function
 
-// For testing reasons, all aspects of Substradix are instantiated as a single Component. 
-// In a final implementation, Gamedata would be set across multiple Components, allowing for modular updates without affecting the central blueprint.
-// For example, a single component would handle combat, one for forging, one for the marketplace, and one for creating a character and character info.
 blueprint! {
     struct Substradix {
-        collected_xrd: Vault,
-        character_nft: ResourceAddress,
-        system_vault: Vault,
-        developer_vault: Vault,
-        gold_vault: Vault,
-        weapon_nft: ResourceAddress,
-        armor_nft: ResourceAddress,
-        accessory_nft: ResourceAddress,
-        receipt_nft: ResourceAddress,
-        token_greavite: ResourceAddress,
-        token_wood: ResourceAddress,
-        token_gold: ResourceAddress,
-        marketplace_weapon_vault: Vault,
-        marketplace_accessory_vault: Vault,
-        marketplace_armor_vault: Vault,
+        collected_xrd: Vault, // Stored XRD from game sales
+        character_nft: ResourceAddress, // Resource address of the character NFT
+        system_vault: Vault, // Stores the system's badge to approve allowed actions
+        developer_vault: Vault, // Stores the developer's badge for later actions
+        gold_vault: Vault, // Stores Gold for the game. Can be spent on items.
+        weapon_nft: ResourceAddress, // Resource address of the weapon NFT
+        armor_nft: ResourceAddress, // Resource address of the armor NFT
+        accessory_nft: ResourceAddress, // Resource address of the accessory NFT
+        receipt_nft: ResourceAddress, // Resource address of the receipt NFT
+        token_greavite: ResourceAddress, // Resource address of the greavite token
+        token_wood: ResourceAddress, // Resource address of the wood token
+        token_gold: ResourceAddress, // Resource address of the gold token
+        marketplace_weapon_vault: Vault, // Stores all Weapon NFTs listed on the marketplace
+        marketplace_accessory_vault: Vault, // Stores all Accessory NFTs listed on the marketplace
+        marketplace_armor_vault: Vault, // Stores all Armor NFTs listed on the marketplace
         // LazyMaps don't support Clone... or the remove function...
-        marketplace_listings: LazyMap<(structs::Categories, NonFungibleId), (structs::Receipt, bool)>,
-        game_data: structs::GameData,
+        marketplace_listings: LazyMap<(structs::Categories, NonFungibleId), (structs::Receipt, bool)>, // Stores data of all listings on the marketplace
+        game_data: structs::GameData, // All other game data
     }
 
     impl Substradix {
@@ -35,14 +32,14 @@ blueprint! {
             let mut developer_badge = ResourceBuilder::new_fungible()
                 .metadata("name", "developer")
                 .divisibility(DIVISIBILITY_NONE)
-                .initial_supply(10000);
+                .initial_supply(10000); // 10000 is arbitrary
             let developer_rule: AccessRule = rule!(require(developer_badge.resource_address()));
             // Creates system badge changing NFT Data. Necessary for all game actions.
             let system_badge = ResourceBuilder::new_fungible()
                 .metadata("name", "system")
                 .divisibility(DIVISIBILITY_NONE)
                 .mintable(developer_rule.clone(), MUTABLE(developer_rule.clone()))
-                .initial_supply(1000000);
+                .initial_supply(1000000); // 1000000 is arbitrary
             let system_rule: AccessRule = rule!(require(system_badge.resource_address()));
             // NFTs with data
             let character_nft = ResourceBuilder::new_non_fungible()
@@ -243,8 +240,10 @@ blueprint! {
             if item_bucket.resource_address() == self.weapon_nft {
                 let mut item: structs::Weapon = item_bucket.non_fungibles()[0].data();
                 let item2: structs::Weapon = item_bucket.non_fungibles()[1].data();
+                // Makes sure items are same level + type
                 assert!(item.item_info.level == item2.item_info.level);
                 assert!(item.item_info.id == item2.item_info.id);
+                // Sets new item stats
                 item.item_info.level += 1;
                 item.physical_base *= dec!("1.2");
                 item.physical_scaling *= dec!("1.2");
@@ -555,10 +554,24 @@ blueprint! {
             self.marketplace_listings.insert((receipt_data.category, receipt_data.item_id.clone()), (receipt_data.clone(), false));
             receipt_data.price
         }
+        // For testing purposes only, allows Proofs to be used in the stage method through the Transaction Manifest
+        pub fn full_proof_stage(&mut self, 
+            nft_proof: Proof, 
+            weapon: Proof,
+            helmet: Proof, 
+            chest: Proof, 
+            pants: Proof, 
+            gloves: Proof, 
+            belt: Proof, 
+            shoes: Proof, 
+            stage: u64,
+            ) -> (Bucket, Bucket, Bucket) {
+            self.stage(nft_proof, Some(weapon), Some(helmet), Some(chest), Some(pants), Some(gloves), Some(belt), Some(shoes), stage)
+        }
         // Place character,weapon,armor, and accessory data + stage # to fight. 
-        // Method calculates whether you win and grants rewards based on win or loss
+        // Method grants rewards based on win or loss
         // Note: The Transaction Manifest currently does not support the placing a Proof inside of an Enum such as Option<Proof>.
-        // While this code is sound within Scrypto, it cannot be testing with actual Proofs at the moment. However, it can be run using "None" as the Option<Proof>.
+        // While this code is sound within Scrypto, it cannot be tested with actual Proofs at the moment. However, it can be run using "None" as the Option<Proof>.
         pub fn stage(&mut self, 
             nft_proof: Proof, 
             weapon: Option<Proof>,
@@ -672,14 +685,14 @@ blueprint! {
                 ability_belt: belt_ability,
                 ability_shoes: shoes_ability,
             };
+            // Logic here could be handled better
             // To modify combat, simply change numbers for Enemy Data, EXP rewards, and Stage Number.
             let fight = combat::combat(player_info, enemy_1_data.combat_info);
             player_info.health = fight;
             let fight2 = combat::combat(player_info, enemy_2_data.combat_info);
             player_info.health = fight2;
             let fight3 = combat::combat(player_info, enemy_3_data.combat_info);
-            // To modify stage rewards, simply change numbers + minted rewards below
-            // Numbers which drop can be randomized as well, simply add self.seed_
+            // Numbers which drop can be randomized as well with a minor addition
             let rewards = if fight == dec!(0) || fight <= dec!(0) {
                 let exp = enemy_1_data.exp_on_loss;
                 let gold = enemy_1_data.gold_on_loss;
@@ -735,6 +748,7 @@ blueprint! {
             };
             let mut new_data = nft_data.clone();
             // Loops levelups until you reach the level for your given EXP
+            // Loops so specific actions which occur at certain levels can be integrated more easily
             loop {
                 if nft_data.exp >= self.game_data.exp_data[level] { 
                     new_data = structs::Character {
