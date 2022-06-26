@@ -1,0 +1,89 @@
+# This manifest file and the accociated method is for testing purposes only.
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[nft_character_id]")) 
+    ResourceAddress("[nft_character_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("character_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[weapon_id]")) 
+    ResourceAddress("[weapon_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("weapon_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[helmet_id]")) 
+    ResourceAddress("[armor_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("helmet_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[chest_id]")) 
+    ResourceAddress("[armor_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("chest_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[pants_id]")) 
+    ResourceAddress("[armor_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("pants_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[gloves_id]")) 
+    ResourceAddress("[accessory_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("gloves_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[belt_id]")) 
+    ResourceAddress("[accessory_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("belt_proof");
+
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[shoes_id]")) 
+    ResourceAddress("[accessory_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("shoes_proof");
+
+CALL_METHOD
+    ComponentAddress("[substradix_component_address]")
+    "full_proof_stage"
+    Proof("character_proof")
+    Proof("weapon_proof")
+    Proof("helmet_proof")
+    Proof("chest_proof")
+    Proof("pants_proof")
+    Proof("gloves_proof")
+    Proof("belt_proof")
+    Proof("shoes_proof");
+    1u64;
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("[account_component_address]") 
+    "deposit_batch";

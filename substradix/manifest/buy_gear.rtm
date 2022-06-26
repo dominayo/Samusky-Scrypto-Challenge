@@ -1,0 +1,20 @@
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "withdraw" 
+    ResourceAddress("[gold_resource_address]")
+    Decimal("[item_price]");
+
+TAKE_FROM_WORKTOP
+    ResourceAddress("[gold_resource_address]")
+    Bucket("gold_bucket");
+
+CALL_METHOD 
+    ComponentAddress("[substradix_component_address]") 
+    "buy_single_gear"
+    Bucket("gold_bucket")
+    Enum("[gear_type]")
+    NonFungibleId("[gear_id]");
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("[account_component_address]") 
+    "deposit_batch";

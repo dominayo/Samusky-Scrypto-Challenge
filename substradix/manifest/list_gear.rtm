@@ -1,0 +1,21 @@
+# Only a single item can be listed at a time.
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "withdraw" 
+    ResourceAddress("[item_resource_address]");
+
+TAKE_FROM_WORKTOP_BY_IDS
+    TreeSet<NonFungibleId>(NonFungibleId("[item_1]"))
+    ResourceAddress("[item_resource_address]")
+    Bucket("nft_bucket");
+
+CALL_METHOD 
+    ComponentAddress("[substradix_component_address]") 
+    "list_single_item"
+    Bucket("nft_bucket")
+    Decimal("[item_price]")
+    Enum("[item_category]");
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("[account_component_address]") 
+    "deposit_batch";
