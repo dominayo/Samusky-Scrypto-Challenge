@@ -3,8 +3,10 @@ use scrypto::prelude::*;
 mod structs;
 mod rng;
 mod combat;
-mod ability;
 
+// For testing reasons, all aspects of Substradix are instantiated as a single Component. 
+// In a final implementation, Gamedata would be set across multiple Components, allowing for modular updates without affecting the central blueprint.
+// For example, a single component would handle combat, one for forging, one for the marketplace, and one for creating a character and character info.
 blueprint! {
     struct Substradix {
         collected_xrd: Vault,
@@ -71,6 +73,7 @@ blueprint! {
                 .restrict_withdraw(AccessRule::AllowAll, MUTABLE(developer_rule.clone()))
                 .updateable_non_fungible_data(system_rule.clone(), MUTABLE(developer_rule.clone()))
                 .no_initial_supply();
+                // Receipt NFT to store data of items listed for sale.
             let receipt_nft = ResourceBuilder::new_non_fungible()
                 .metadata("type", "Substradix weapon NFT")
                 .mintable(system_rule.clone(), MUTABLE(developer_rule.clone()))
@@ -96,6 +99,8 @@ blueprint! {
                 .burnable(rule!(require(system_badge.resource_address())), MUTABLE(developer_rule.clone()))
                 .no_initial_supply();
 
+            // Game Data can be hardcoded at instantiation, but I had it be set through transaction manifest for future use.
+            // Game Data can always be updated through the Transaction Manifest, example file is setup.rtm.
             let game_data = structs::GameData {
                 game_version:  dec!(1),
                 game_price: game_price,
@@ -114,6 +119,7 @@ blueprint! {
 
             let instantiate = Self {
                 system_vault: Vault::with_bucket(system_badge),
+                // Vault holds all Developer badeges except one given to instantiator.
                 developer_vault: Vault::with_bucket(developer_badge.take(9999)),
                 collected_xrd: Vault::new(RADIX_TOKEN),
                 gold_vault: Vault::new(token_gold),
@@ -133,6 +139,7 @@ blueprint! {
             }
             .instantiate();
 
+            // Sets access for various methods
             let access_rules = AccessRules::new()
                 .method("withdraw_xrd", rule!(require(developer_badge.resource_address())))
                 .method("upload_stage_data", rule!(require(developer_badge.resource_address())))
@@ -149,6 +156,11 @@ blueprint! {
                 .method("create_accessory", rule!(allow_all))
                 .method("stage", rule!(allow_all))
                 .method("combat", rule!(allow_all))
+                .method("list_single_gear", rule!(allow_all))
+                .method("buy_single_gear", rule!(allow_all))
+                .method("redeem_receipt", rule!(allow_all))
+                .method("change_listing_price", rule!(allow_all))
+                .method("remove_listing", rule!(allow_all))
                 .method("levelup", rule!(allow_all));
             
             (instantiate.add_access_check(access_rules).globalize(), developer_badge)
@@ -156,8 +168,7 @@ blueprint! {
 
         // Dev only, collects all XRD from sold Personal Tokens
         pub fn withdraw_xrd(&mut self) -> Bucket {
-            let withdraw =  self.developer_vault.authorize(|| self.collected_xrd.take_all());
-            withdraw
+            self.collected_xrd.take_all()
         }
         // Changes price of Substradix
         pub fn change_price(&mut self, new_price: Decimal) {
@@ -192,7 +203,6 @@ blueprint! {
         }
         // Creates character.
         pub fn create_character(&mut self, mut payment: Bucket, class: u64, name: String) -> (Bucket, Bucket) {
-            let key_bucket: Bucket = self.system_vault.take(1);
             // Design: I used u64 for Characters instead of an Enum to support the creation of new characters without Blueprint updates.
             let hp = self.game_data.char_hp.get(&class).unwrap();
             let atk = self.game_data.char_atk.get(&class).unwrap();
@@ -212,18 +222,20 @@ blueprint! {
                 speed: spd[0].into(), 
                 version: self.game_data.game_version, 
             };
-            let new_character = self.system_vault.authorize(|| borrow_resource_manager!(self.character_nft)
-                .mint_non_fungible(&NonFungibleId::from_u64(self.game_data.character_number), character_data));
-                    
+            ComponentAuthZone::push(self.system_vault.create_proof());
+
+            let new_character = borrow_resource_manager!(self.character_nft)
+                .mint_non_fungible(&NonFungibleId::from_u64(self.game_data.character_number), character_data);
+            
+            ComponentAuthZone::pop();
+
             self.game_data.character_number += 1;
             self.collected_xrd.put(payment.take(self.game_data.game_price));
-            self.system_vault.put(key_bucket);
             return (new_character, payment,)
         }
         // Takes two of the same type + level Weapon/Armor/Accessory NFT, burns them, and makes a new one based off of the first. 
         // Takes stats from first NFT. Stats increase by 20% per upgrade
         pub fn fuse_items(&mut self, item_bucket: Bucket) -> Bucket {
-            let key_bucket: Bucket = self.system_vault.take(1);
             assert!(item_bucket.amount() == dec!("2"));
             assert!(item_bucket.resource_address() == self.weapon_nft || 
             item_bucket.resource_address() == self.armor_nft ||
@@ -256,8 +268,6 @@ blueprint! {
                         .mint_non_fungible(&NonFungibleId::random(), new);
                         
                 ComponentAuthZone::pop();
-
-                self.system_vault.put(key_bucket);
                 return new_bucket
             }
             else if item_bucket.resource_address() == self.armor_nft {
@@ -286,7 +296,6 @@ blueprint! {
 
                 ComponentAuthZone::pop();
                 
-                self.system_vault.put(key_bucket);
                 return new_bucket
             }
             else {
@@ -322,14 +331,12 @@ blueprint! {
                         .mint_non_fungible(&NonFungibleId::random(), new);
 
                 ComponentAuthZone::pop();
-                
-                self.system_vault.put(key_bucket);
+
                 return new_bucket
             }              
         }
         // Creates weapons
         pub fn create_weapon(&mut self, mut gold: Bucket, mut resource1: Bucket, mut resource2: Bucket, class: u64, id: Decimal) -> (Bucket,Bucket,Bucket,Bucket) {
-            let key_bucket: Bucket = self.system_vault.take(1);
             let weapon_info = self.game_data.weapon_data.get(&(class,id)).unwrap();
             // Assertations so no cheating
             assert!(gold.resource_address() == self.token_gold);
@@ -372,11 +379,9 @@ blueprint! {
 
             ComponentAuthZone::pop();
 
-            self.system_vault.put(key_bucket);
             (new_weapon,gold,resource1,resource2)
         }
         pub fn create_armor(&mut self, mut gold: Bucket, mut resource1: Bucket, mut resource2: Bucket, armor: structs::ArmorNames, id: Decimal) -> (Bucket,Bucket,Bucket,Bucket) {
-            let key_bucket: Bucket = self.system_vault.take(1);
             let armor_info = self.game_data.armor_data.get(&(armor,id)).unwrap();
             let gold_bucket: Bucket = gold.take(armor_info.crafting_data.gold_cost);
             let resource1_bucket: Bucket = resource1.take(armor_info.crafting_data.resource_1_cost);
@@ -411,11 +416,9 @@ blueprint! {
 
             ComponentAuthZone::pop();
 
-            self.system_vault.put(key_bucket);
             (new_weapon,gold,resource1,resource2)
         }
         pub fn create_accessory(&mut self, mut gold: Bucket, mut resource1: Bucket, mut resource2: Bucket, accessory: structs::AccessoryNames, id: Decimal) -> (Bucket,Bucket,Bucket,Bucket) {
-            let key_bucket: Bucket = self.system_vault.take(1);
             let accessory_info = self.game_data.accessory_data.get(&(accessory,id)).unwrap();
             let gold_bucket: Bucket = gold.take(accessory_info.crafting_data.gold_cost);
             let resource1_bucket: Bucket = resource1.take(accessory_info.crafting_data.resource_1_cost);
@@ -462,7 +465,6 @@ blueprint! {
 
             ComponentAuthZone::pop();
 
-            self.system_vault.put(key_bucket);
             (new_weapon,gold,resource1,resource2)
         }
         // List gear on the marketplace. Prices are set in gold
@@ -555,6 +557,8 @@ blueprint! {
         }
         // Place character,weapon,armor, and accessory data + stage # to fight. 
         // Method calculates whether you win and grants rewards based on win or loss
+        // Note: The Transaction Manifest currently does not support the placing a Proof inside of an Enum such as Option<Proof>.
+        // While this code is sound within Scrypto, it cannot be testing with actual Proofs at the moment. However, it can be run using "None" as the Option<Proof>.
         pub fn stage(&mut self, 
             nft_proof: Proof, 
             weapon: Option<Proof>,
@@ -566,8 +570,6 @@ blueprint! {
             shoes: Option<Proof>, 
             stage: u64,
             ) -> (Bucket, Bucket, Bucket) {
-            // Takes system badge for authorization
-            let key_bucket: Bucket = self.system_vault.take(1);
             // Data from Proofs
             let mut nft_data: structs::Character = nft_proof.non_fungible().data();
             // Sets gear data. Allows you to fight without any gear. Makes sure you're not using homebrew NFTs
@@ -718,7 +720,6 @@ blueprint! {
                         .mint(rewards.3));
                 nft_data = self.levelup(nft_data.clone());
                 self.system_vault.authorize(|| nft_proof.non_fungible().update_data(nft_data));
-                self.system_vault.put(key_bucket);
                 return (reward1, reward2, reward3)
         }
         //Levelup method
