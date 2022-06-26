@@ -1,18 +1,18 @@
 CALL_METHOD 
-    ComponentAddress("020d3869346218a5e8deaaf2001216dc00fcacb79fb43e30ded79a")
+    ComponentAddress("[account_component_address]")
     "create_proof"
-    ResourceAddress("03823d742d0e0472f94e84f421b1a8f048d406849f2c5541ed8c67");
+    ResourceAddress("[developer_token_resource_address]");
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_weapon_data"
     1u64
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("[greavite_resource_address]"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -31,15 +31,15 @@ CALL_METHOD
         
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_armor_data"
     Enum("Helmet")
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("03149ac84710f71e0aea57ad48618d96101232b8f3b2ed4dd1fd7a"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -51,15 +51,15 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_armor_data"
     Enum("Chest")
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("03149ac84710f71e0aea57ad48618d96101232b8f3b2ed4dd1fd7a"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -71,15 +71,15 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_armor_data"
     Enum("Pants")
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("03149ac84710f71e0aea57ad48618d96101232b8f3b2ed4dd1fd7a"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -91,15 +91,15 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_accessory_data"
     Enum("Gloves")
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("03149ac84710f71e0aea57ad48618d96101232b8f3b2ed4dd1fd7a"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -118,15 +118,15 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_accessory_data"
     Enum("Belt")
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("03149ac84710f71e0aea57ad48618d96101232b8f3b2ed4dd1fd7a"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -145,15 +145,15 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_accessory_data"
     Enum("Shoes")
     Decimal("1")
     Struct(
         Struct(
             Decimal("1"),
-            ResourceAddress("03222b61b328e1fac74b0d6a29ab395c5d37c5c9dd1f992a8bcc31"),
-            ResourceAddress("030c24d6a1fb3ab259d6f7dfd6fc67631e937e0506ccacdc5f77ec"),
+            ResourceAddress("03149ac84710f71e0aea57ad48618d96101232b8f3b2ed4dd1fd7a"),
+            ResourceAddress("[wood_resource_address]"),
             Decimal("1"),
             Decimal("1"),
             Decimal(".01"),
@@ -172,7 +172,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_levelup_data"
     Vec<U128>(
         0u128, 
@@ -198,7 +198,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_char_data"
     1u64
     Enum("Health")
@@ -226,7 +226,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_char_data"
     1u64
     Enum("Attack")
@@ -254,7 +254,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_char_data"
     1u64
     Enum("Magic")
@@ -282,7 +282,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_char_data"
     1u64
     Enum("Defense")
@@ -310,7 +310,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_char_data"
     1u64
     Enum("Speed")
@@ -338,7 +338,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_stage_data"
     1u64
     Struct(
@@ -403,7 +403,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_stage_data"
     2u64
     Struct(
@@ -468,7 +468,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_stage_data"
     3u64
     Struct(
@@ -533,7 +533,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_stage_data"
     4u64
     Struct(
@@ -598,7 +598,7 @@ CALL_METHOD
     );
 
 CALL_METHOD
-    ComponentAddress("02b7435554d45f1cde1b4b9ee6cff3c90d45ac555b7b4a72853a41")
+    ComponentAddress("[substradix_component_address]")
     "upload_stage_data"
     5u64
     Struct(
