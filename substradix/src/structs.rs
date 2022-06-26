@@ -1,5 +1,8 @@
 use scrypto::prelude::*;
 
+// A portion of fields within these structs are not used in this example.
+// They are included for illustrative purposes, and to display possible future additions
+
 #[derive(TypeId,  Describe, Clone, PartialEq, Decode, Encode)]
 pub struct Item {
     pub id: Decimal,
