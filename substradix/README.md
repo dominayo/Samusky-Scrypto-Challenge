@@ -13,7 +13,7 @@ The Basic Gameplay loop is as follows:
 - Users combine crafted gear/weapons/accessories to futher stregthen themselves.
 - Users battle tougher and tougher enemies, requiring better gear/accessories/weapons, etc.
 
-Outside of the core Gameplay Loop (Implmentation in progress:
+Outside of the core Gameplay Loop (Implmentation in progress):
 - Users sell gear for gold, which can be staked or exchanged for XRD.
 - Users earn cool skins/titles
 - Users fight in asynchronous PVP or Guild battles for rewards
@@ -21,7 +21,7 @@ Outside of the core Gameplay Loop (Implmentation in progress:
 ### Getting started
 
 The Demo of the game takes place through Resim, the Radix Engine Simulator. To assist in creating transactions, several sample Transaction Manifest Files have been 
-created in the main substradix directory. 
+created in the `manifest` folder. 
 
 To begin: 
 
@@ -48,7 +48,7 @@ in `setup.rtm`, replace the account, component, and resource addresses with the 
 
 Afterwards, execute setup.rtm
 ```
-resim run setup.rtm
+resim run manifest/setup.rtm
 ```
 Now all the data is set up!
 
@@ -61,13 +61,13 @@ resim call-method $component create_character 100,030000000000000000000000000000
 
 Or change the addresses in `create_character.rtm` and run
 ```
-resim run create_character.rtm
+resim run manifest/create_character.rtm
 ````
 
 By now, you should have the hang of this. Here's a list of methods to run next, and the corresponding Transaction Manifest File:
 
 ### Methods/Manifest Files to run
-- stage | `combat.rtm`
+- stage | `manifest/combat.rtm`
  
 |**NOTE**| Neither the Transaction Manifest nor the command line currently support the type `Option<Proof>`. |
 |----|-----|
@@ -81,21 +81,21 @@ By now, you should have the hang of this. Here's a list of methods to run next, 
 `
 wen Proof in Enum support :'(`
 
-- create_weapon | `forge_weapon.rtm`
-- create_armor | `forge_armor.rtm`
-- create_accessory | `forge_accessory.rtm`
-- fuse_items | `fuse_items.rtm`
-- list_single_gear | `list_gear.rtm`
-- buy_single_gear | `buy_gear.rtm`
-- redeem_receipt | `redeem_sale.rtm`
-- remove_listing | `remove_listing.rtm`
-- change_listing_price | `change_listing_price.rtm`
-- create_character | `create_character.rtm`
-- change_price | `change_game_price.rtm`
-- withdraw_xrd | `withdraw_xrd.rtm`
-- upload_levelup_data | `setup.rtm`
-- upload_weapon_data | `setup.rtm`
-- upload_armor_data | `setup.rtm`
-- upload_accessory_data | `setup.rtm`
-- upload_stage_data | `setup.rtm`
-- upload_char_data | `setup.rtm`
+- create_weapon | `manifest/forge_weapon.rtm`
+- create_armor | `manifest/forge_armor.rtm`
+- create_accessory | `manifest/forge_accessory.rtm`
+- fuse_items | `manifest/fuse_items.rtm`
+- list_single_gear | `manifest/list_gear.rtm`
+- buy_single_gear | `manifest/buy_gear.rtm`
+- redeem_receipt | `manifest/redeem_sale.rtm`
+- remove_listing | `manifest/remove_listing.rtm`
+- change_listing_price | `manifest/change_listing_price.rtm`
+- create_character | `manifest/create_character.rtm`
+- change_price | `manifest/change_game_price.rtm`
+- withdraw_xrd | `manifest/withdraw_xrd.rtm`
+- upload_levelup_data | `manifest/setup.rtm`
+- upload_weapon_data | `manifest/setup.rtm`
+- upload_armor_data | `manifest/setup.rtm`
+- upload_accessory_data | `manifest/setup.rtm`
+- upload_stage_data | `manifest/setup.rtm`
+- upload_char_data | `manifest/setup.rtm`
