@@ -1,0 +1,18 @@
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "withdraw" 
+    ResourceAddress("[receipt_resource_address]");
+
+TAKE_FROM_WORKTOP_BY_IDS
+    TreeSet<NonFungibleId>(NonFungibleId("[receipt_id]"))
+    ResourceAddress("[receipt_resource_address]")
+    Bucket("receipt_bucket");
+
+CALL_METHOD 
+    ComponentAddress("[substradix_component_address]") 
+    "remove_listing"
+    Bucket("receipt_bucket");
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("[account_component_address]") 
+    "deposit_batch";

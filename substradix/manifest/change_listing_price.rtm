@@ -1,0 +1,14 @@
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "create_proof_by_ids" 
+    TreeSet<NonFungibleId>(NonFungibleId("[receipt_id]")) 
+    ResourceAddress("[receipt_resource_address]");
+
+POP_FROM_AUTH_ZONE
+    Proof("proof");
+
+CALL_METHOD
+    ComponentAddress("[substradix_component_address]")
+    "change_listing_price"
+    Proof("proof")
+    Decimal("[new_price]");

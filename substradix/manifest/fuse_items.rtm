@@ -1,0 +1,19 @@
+# Make sure you match up the resource address to the desired resource to be fused.
+CALL_METHOD 
+    ComponentAddress("[account_component_address]") 
+    "withdraw" 
+    ResourceAddress("[item_resource_address]");
+
+TAKE_FROM_WORKTOP_BY_IDS
+    TreeSet<NonFungibleId>(NonFungibleId("[item_1]"), NonFungibleId("[item_2]"))
+    ResourceAddress("[item_resource_address]")
+    Bucket("nft_bucket");
+
+CALL_METHOD 
+    ComponentAddress("[substradix_component_address]") 
+    "fuse_items"
+    Bucket("nft_bucket");
+
+CALL_METHOD_WITH_ALL_RESOURCES 
+    ComponentAddress("[account_component_address]") 
+    "deposit_batch";
